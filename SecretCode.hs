@@ -83,7 +83,9 @@ character in our code, (i.e. for punctuation) we should leave it alone.
 -- >>> encodeChar '.'
 -- '.
 encodeChar :: Char -> Char
-encodeChar c = undefined
+encodeChar c = case lookup c code of
+  Nothing -> c
+  Just c' -> c'
 
 testEncodeChar =
   runTestTT $
@@ -101,7 +103,7 @@ function in `Lec3` that we can use:
 -- >>> encodeLine "abc defgh"
 -- "the quick"
 encodeLine :: String -> String
-encodeLine = undefined
+encodeLine = map encodeChar
 
 testEncodeLine = runTestTT $ TestList [encodeLine "abc defgh" ~?= "the quick"]
 
@@ -130,7 +132,7 @@ So...
 -}
 
 encodeContent :: String -> String
-encodeContent = undefined
+encodeContent = unlines . reverse . map encodeLine . lines
 
 testEncodeContent =
   runTestTT $
@@ -160,7 +162,9 @@ create a new filename by appending a new extension to it.
 encodeFile :: FilePath -> IO ()
 encodeFile f = do
   let outFile = f ++ ".code"
-  undefined
+  str <- readFile f
+  writeFile outFile $ encodeContent str
+  return ()
 
 {-
 Finally, lets put it all together into a "main" function that reads in

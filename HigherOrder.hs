@@ -10,6 +10,8 @@ import Data.Char
 import Test.HUnit
 import Prelude hiding (filter, foldr, map, pred, product, sum)
 
+-- Little Playground for Chris:
+
 {-
 Functions Are Data
 ==================
@@ -41,7 +43,7 @@ Or you can make a list containing the functions
 -}
 
 funs :: [Int -> Int]
-funs = undefined
+funs = [plus1, minus1]
 
 {-
 Taking Functions as Input
@@ -162,12 +164,14 @@ Note the types of the above are `Int -> Int`.  That is, `plus10` and
 -}
 
 -- >>> plus10 3
+-- 13
 
 {-
 
 -}
 
 -- >>> plusn 10 3
+-- 13
 
 {-
 Partial Application
@@ -252,7 +256,8 @@ arguments before substituting them into the body of a defined function.
 
     doTwicePlus20 0 == doTwice (plus 20) 0        {- unfold doTwice -}
                     == (plus 20) ((plus 20) 0)
-                    ... undefined (fill this part in) ...
+                       (plus 20) (0 + 20)
+                       0 + 20 + 20
                     == 20 + 20 + 0
                     == 40
 
@@ -402,7 +407,7 @@ following test passes.
 -}
 
 singleton :: a -> [a]
-singleton = undefined
+singleton = (: [])
 
 singletonTest :: Test
 singletonTest = singleton True ~?= [True]
@@ -463,12 +468,14 @@ Ok, to make sure you're following, can you figure out what this does?
 ex1 :: (a -> a) -> a -> a
 ex1 x y = doTwice doTwice x y
 
+--TODO think
+
 {-
 
 -}
 
 ex1Test :: Test
-ex1Test = undefined
+ex1Test = undefined --TODO
 
 {-
 Polymorphic Data Structures
@@ -511,7 +518,7 @@ a function that starts with `unsafe` doesn't count.)
 -}
 
 impossible :: a
-impossible = undefined
+impossible = undefined --TODO
 
 {-
 Because `impossible` has to have *any* type, there is no real value that we
